@@ -42,7 +42,7 @@ if($age < 1 || $age > 120){
 
 try{
 
-    $connection = "mongodb+srv://oop:oop@cluster0.9knxc.mongodb.net/?appName=Cluster0";
+    $connection = getenv("MONGO_URI");
 
     $mongo = new Client($connection);
 
