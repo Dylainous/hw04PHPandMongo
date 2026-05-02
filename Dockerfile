@@ -1,21 +1,16 @@
 FROM php:8.2-apache
 
+# Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
-    libzip-dev unzip git curl
+    libssl-dev \
+    pkg-config
 
-RUN docker-php-ext-install zip
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+# Instalar MongoDB extension con SSL
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
 
-WORKDIR /var/www/html
+# Copiar proyecto
+COPY . /var/www/html/
 
-COPY . .
-
-RUN composer install
-
-RUN a2enmod rewrite
-
-EXPOSE 80
+# Permisos
+RUN chown -R www-data:www-data /var/www/html
