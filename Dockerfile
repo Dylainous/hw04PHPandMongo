@@ -3,7 +3,7 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     libzip-dev unzip git curl
 
-RUN docker-php-ext-install zip
+RUN docker-php-ext-install mongodb
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
